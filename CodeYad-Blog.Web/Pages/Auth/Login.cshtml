@@ -1,0 +1,70 @@
+﻿@page
+@model CodeYad_Blog.Web.Pages.Auth.LoginModel
+@{
+    ViewData["Title"] = "ورود کاربر";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>@ViewData["Title"]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="/css/style-login.css">
+</head>
+<body>
+    <div class="background"></div>
+    <div class="centering">
+        <form method="post" class="my-form">
+            <div class="login-welcome-row">
+                <img class="login-welcome"
+                     src="/images/Login/astronaut.jpg"
+                     alt="Astronaut">
+                <!-- optimize the image in production -->
+                <h1>LogIn!</h1>
+            </div>
+            <div class="text-field">
+                <label for="email">Email:</label>
+                <input aria-label="Email"
+                       type="text"
+                       asp-for="UserName"
+
+                       placeholder="Your Email"
+                       required>
+                <img alt="Email Icon"
+                     title="Email Icon"
+                     src="/images/Login/email.svg">
+            </div>
+            <div class="text-field">
+                <label for="password">Password:</label>
+                <input 
+                       type="password"
+                       asp-for="Password"
+                       aria-label="Password"
+                       placeholder="Your Password"
+                       title="Minimum 6 characters at least 1 Alphabet and 1 Number"
+                       >
+                <img alt="Password Icon"
+                     title="Password Icon"
+                     src="/images/Login/password.svg">
+            </div>
+            <input type="submit" class="my-form__button" value="Login">
+            <div class="my-form__actions">
+                <div class="my-form__row">
+                    <span>Did you forget your password?</span>
+                    <a href="#" title="Reset Password">Reset Password</a>
+                </div>
+                <div class="my-form__signup">
+                    <a href="#" title="Create Account">Create Account</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+</body>
+</html>
+

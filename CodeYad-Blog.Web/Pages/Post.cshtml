@@ -1,0 +1,202 @@
+﻿@page "{slug}"
+@using CodeYad_Blog.CoreLayer.Utilities
+@model CodeYad_Blog.Web.Pages.PostModel
+@{
+    ViewData["Title"] = Model.Post.Title;
+    var siteUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+    var postUrl = $"{siteUrl}/post/{Model.Post.Slug}";
+    var shortDescription = Model.Post.Description.ConvertHtmlToText();
+    if (shortDescription.Length > 300)
+    {
+        shortDescription = shortDescription.Substring(0, 200);
+    }
+    var imageType = @System.IO.Path.GetExtension(Model.Post.ImageName).Replace(".", "");
+    var imageUrl = @Directories.GetPostImage(Model.Post.ImageName);
+}
+@section MetaLink{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+}
+@section MetaTags
+    {
+    <meta property="og:type" content="article">
+    <meta name="description" content="@shortDescription">
+    <meta name="og:description" content="@shortDescription">
+    <meta name="twitter:description" content="@shortDescription">
+    <meta property="og:image" content="@imageUrl">
+    <meta property="og:image:type" content="image/@imageType">
+    <meta name="twitter:image" content="@imageUrl">
+}
+<div class="container">
+    <ul class="breadcrumbs">
+        <li class="breadcrumbs__item">
+            <a asp-page="Index" class="breadcrumbs__url">خانه</a>
+        </li>
+        <li class="breadcrumbs__item">
+            <a asp-page="Category" asp-route-categoryTitle="@Model.Post.Category.Slug" class="breadcrumbs__url">@Model.Post.Category.Title</a>
+        </li>
+        @if (Model.Post.SubCategory != null)
+        {
+            <li class="breadcrumbs__item">
+                <a asp-page="Category" asp-route-categoryTitle="@Model.Post.SubCategory.Slug" class="breadcrumbs__url">@Model.Post.SubCategory.Title</a>
+            </li>
+        }
+        <li class="breadcrumbs__item breadcrumbs__item--current">
+            @Model.Post.Title
+        </li>
+    </ul>
+</div>
+
+<div class="main-container container" id="main-container">
+    <div class="row">
+        <div class="col-lg-8 blog__content mb-72">
+            <div class="content-box">
+
+                <article class="entry mb-0">
+
+                    <div class="single-post__entry-header entry__header">
+
+                        <h1 class="single-post__entry-title">
+                            @Model.Post.Title
+                        </h1>
+
+                        <div class="entry__meta-holder">
+                            <ul class="entry__meta">
+                                <li class="entry__meta-author">
+                                    <span>نویسنده:</span>
+                                    <a href="#">@Model.Post.UserName</a>
+                                </li>
+                                <li class="entry__meta-date">
+                                    @Model.Post.CreationDate.Date
+                                </li>
+                            </ul>
+
+                            <ul class="entry__meta">
+                                <li class="entry__meta-views">
+                                    <i class="ui-eye"></i>
+                                    <span>@Model.Post.Visit</span>
+                                </li>
+                                <li class="entry__meta-comments">
+                                    <a href="#">
+                                        <i class="ui-chat-empty"></i>@Model.Comments.Count
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div> <!-- end entry header -->
+
+                    <div class="entry__img-holder">
+                        <img src="@imageUrl" alt="@Model.Post.Title" class="entry__img">
+                    </div>
+
+                    <div class="entry__article-wrap">
+                        <div class="entry__share">
+                            <div class="sticky-col" style="">
+                                <div class="socials socials--rounded socials--large">
+                                    <a class="social social-facebook" href="https://www.facebook.com/sharer/sharer.php?u=@postUrl" title="facebook" target="_blank" aria-label="facebook">
+                                        <i class="ui-facebook"></i>
+                                    </a>
+                                    <a class="social social-twitter" href="https://twitter.com/intent/tweet?url=@postUrl" title="twitter" target="_blank" aria-label="twitter">
+                                        <i class="ui-twitter"></i>
+                                    </a>
+                                    <a class="social social-twitter bg-green" href="https://wa.me?text=@postUrl" title="WhatsApp" target="_blank" aria-label="whatsApp">
+                                        <i class="fa fa-whatsapp"></i>
+                                    </a>
+                                    <a class="social social-twitter" href="https://t.me/share/url?url=@postUrl" title="Telegram" target="_blank" aria-label="Telegram">
+                                        <i class="fa fa-send-o"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div> <!-- share -->
+
+                        <div class="entry__article">
+                            @Html.Raw(Model.Post.Description)
+                        </div> <!-- end entry article -->
+                    </div> <!-- end entry article wrap -->
+                    @if (Model.RelatedPosts.Any())
+                    {
+                        <section class="section related-posts mt-40 mb-0">
+                            <div class="title-wrap title-wrap--line">
+                                <h3 class="section-title">مطالب مرتبط</h3>
+                            </div>
+                            <div id="owl-posts-3-items" class="owl-carousel owl-theme owl-carousel--arrows-outside">
+                                @foreach (var post in Model.RelatedPosts)
+                                {
+                                    <article class="entry thumb thumb--size-1">
+                                        <div class="entry__img-holder thumb__img-holder" style="background-image: url('@Directories.GetPostImage(post.ImageName)');">
+                                            <div class="bottom-gradient"></div>
+                                            <div class="thumb-text-holder">
+                                                <h2 class="thumb-entry-title">
+                                                    <a asp-page="Post" asp-route-slug="@post.Slug">@post.Title</a>
+                                                </h2>
+                                            </div>
+                                            <a asp-page="Post" asp-route-slug="@post.Slug" class="thumb-url"></a>
+                                        </div>
+                                    </article>
+                                }
+                            </div> <!-- end slider -->
+
+                        </section>
+                    }
+                </article> <!-- end standard post -->
+                <!-- Comments -->
+                <div class="entry-comments">
+                    <div class="title-wrap title-wrap--line">
+                        <h3 class="section-title">@Model.Comments.Count دیدگاه</h3>
+                    </div>
+                    <ul class="comment-list">
+                        @foreach (var comment in Model.Comments)
+                        {
+                            <li class="comment">
+                                <div class="comment-body">
+                                    <div class="comment-avatar">
+                                        <img alt="" src="/img/default-avatar.png">
+                                    </div>
+                                    <div class="comment-text">
+                                        <h6 class="comment-author">@comment.UserName</h6>
+                                        <div class="comment-metadata">
+                                            <a href="#" class="comment-date">@comment.CreationDate.ToShortDateString()</a>
+                                        </div>
+                                        <p>@comment.Text</p>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+
+                    </ul>
+                </div> <!-- end comments -->
+                <!-- Comment Form -->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div id="respond" class="comment-respond">
+                        <div class="title-wrap">
+                            <h5 class="comment-respond__title section-title">دیدگاه شما</h5>
+                        </div>
+                        <form class="comment-form" method="post">
+                            <input type="hidden" asp-for="PostId" value="@Model.Post.PostId" />
+                            <p class="comment-form-comment">
+                                <label for="comment">دیدگاه</label>
+                                <textarea id="comment" asp-for="Text" rows="5"></textarea>
+                                <span asp-validation-for="Text"></span>
+                            </p>
+
+                            <p class="comment-form-submit">
+                                <input type="submit" class="btn btn-lg btn-color btn-button" value="ارسال دیدگاه">
+                            </p>
+                        </form>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-danger">
+                        برای ثبت نظر باید ثبت نام کنید
+                    </div>
+                } <!-- end comment form -->
+
+            </div> <!-- end content box -->
+        </div> <!-- end post content -->
+        <!-- Sidebar -->
+        <aside class="col-lg-4 sidebar sidebar--right" id="popular_posts">
+        </aside> <!-- end sidebar -->
+
+    </div> <!-- end content -->
+</div>

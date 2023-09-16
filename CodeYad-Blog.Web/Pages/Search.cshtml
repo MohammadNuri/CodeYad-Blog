@@ -1,0 +1,76 @@
+﻿@page "{handler?}"
+@using CodeYad_Blog.CoreLayer.Services.Categories
+@using CodeYad_Blog.CoreLayer.DTOs.Categories
+@using CodeYad_Blog.CoreLayer.Utilities
+@model CodeYad_Blog.Web.Pages.SearchModel
+@inject ICategoryService _categoryService;
+@{
+    CategoryDto category = null;
+    var search = "";
+    if (!string.IsNullOrWhiteSpace(Model.Filter.FilterParams.CategorySlug))
+    {
+        category = _categoryService.GetCategoryBy(Model.Filter.FilterParams.CategorySlug);
+        if (category != null)
+        {
+            search = category.Title;
+        }
+    }
+    else
+    {
+        search = Model.Filter.FilterParams.Title ?? "مقالات سایت";
+    }
+    ViewData["Title"] = search;
+}
+@section MetaTags
+    {
+    @if (category != null)
+    {
+        <meta name="description" content="@category.MetaDescription">
+        <meta name="og:description" content="@category.MetaDescription">
+        <meta name="twitter:description" content="@category.MetaDescription">
+        <meta name="keywords" content="@category.MetaTag">
+    }
+}
+<div class="main-container container pt-40" id="main-container">
+    <div class="row">
+        <div class="col-lg-8 blog__content mb-72">
+            @if (search != null)
+            {
+                <h1 class="page-title">نتایج جستجو برای: @search</h1>
+            }
+            <div id="ajaxSearch">
+                <partial name="Shared/_SearchView" model="Model.Filter" />
+            </div>
+        </div>
+        <aside class="col-lg-4 sidebar sidebar--right" id="popular_posts">
+        </aside>
+    </div> <!-- end content -->
+</div>
+@section Scripts{
+    <script>
+        function ajaxPagination(pageId) {
+            const params = new URLSearchParams(window.location.search);
+            var categorySlug = '';
+            var q = '';
+            if (params.has('categorySlug')) {
+                categorySlug = params.get("categorySlug");
+            }
+            if (params.has('q')) {
+                q = params.get("q");
+            }
+
+            $.ajax({
+                url: `/search/Pagination?pageId=${pageId}&q=${q}&categorySlug=${categorySlug}`,
+                type: "get",
+                beforeSend: function () {
+                    $(".loading").show();
+                },
+                complete: function () {
+                    $(".loading").hide();
+                }
+            }).done(function (data) {
+                $("#ajaxSearch").html(data);
+            });
+        }
+    </script>
+}

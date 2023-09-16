@@ -1,0 +1,89 @@
+﻿@using CodeYad_Blog.CoreLayer.Utilities
+@model CodeYad_Blog.CoreLayer.DTOs.Posts.PostFilterDto
+@{
+    ViewData["Title"] = "مدیریت پست ها";
+    ViewData["selected"] = "posts";
+    var counter = 1;
+}
+<section class="content-header">
+    <h1>
+        @ViewData["Title"]
+    </h1>
+    <ol class="breadcrumb">
+        <li><a asp-area="Admin" asp-controller="Post" asp-action="Index"><i class="fa fa-dashboard"></i> خانه</a></li>
+        <li><a href="#">مثال ها</a></li>
+        <li class="active">@ViewData["Title"]</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="box box-danger">
+        <div class="box-body">
+            <form>
+                <div class="box box-header">
+                    <button type="submit" class="btn btn-info pull-left">فیلتر</button>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <input class="form-control" type="text" value="@Model.FilterParams.Title" placeholder="عنوان" name="title"/>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <input class="form-control" type="text" value="@Model.FilterParams.CategorySlug" placeholder="Slug Category" name="categorySlug" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <a class="btn btn-info" style="margin-bottom:5px" asp-area="Admin" asp-controller="Post" asp-action="Add">افزودن پست جدید</a>
+
+
+
+    <!-- Default box -->
+    <div class="box box-primary">
+        <div class="box-body p-0"></div>
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>عکس</th>
+                <th>عنوان</th>
+                <th>Slug</th>
+                <th>گروه</th>
+                <th>پست ویژه</th>
+                <th>عملیات</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.Posts)
+            {
+                <tr>
+                    <td>@counter</td>
+                    <td>
+                        <img style="max-width:115px" src="@Directories.GetPostImage(item.ImageName)" alt=""/>
+                    </td>
+                    <td>@item.Title</td>
+                    <td>@item.Slug</td>
+                    <td>@item.Category.Title</td>
+                    <td>
+                        @if (item.IsSpecial)
+                        {
+                            <i class="fa fa-check text-success"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-close text-danger"></i>
+                        }
+                    </td>
+                    <td>
+                        <a asp-area="Admin" asp-controller="Post" asp-action="Edit" asp-route-id="@item.PostId" class="btn btn-info btn-sm">ویرایش</a>
+                    </td>
+                </tr>
+                counter++;
+            }
+            </tbody>
+        </table>
+    </div>
+
+    <partial name="_pagination" model="Model" />
+    
+</section>

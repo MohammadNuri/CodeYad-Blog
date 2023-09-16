@@ -1,0 +1,196 @@
+﻿@page "{handler?}"
+@using CodeYad_Blog.CoreLayer.Utilities
+@model IndexModel
+@{
+    ViewData["Title"] = "دارویکس";
+}
+<div class="container">
+    <div class="trending-now">
+        <span class="trending-now__label">
+            <i class="ui-flash"></i>
+            خبرهای داغ
+        </span>
+        <div class="newsticker">
+            <ul class="newsticker__list">
+                <li class="newsticker__item"><a href="single-post.html" class="newsticker__item-url">گوشی تاشو هواوی میت ایکس در تاریخ مقرر عرضه می‌شود</a></li>
+                <li class="newsticker__item"><a href="single-post-1.html" class="newsticker__item-url">لنوو Z6 پرو با دوربین چهارگانه و اسنپ‌دراگون ۸۵۵ معرفی شد</a></li>
+                <li class="newsticker__item"><a href="single-post-3.html" class="newsticker__item-url">سامسونگ مشغول ساخت دو گوشی تاشو جدید است</a></li>
+            </ul>
+        </div>
+        <div class="newsticker-buttons">
+            <button class="newsticker-button newsticker-button--next" id="newsticker-button--next" aria-label="previous article"><i class="ui-arrow-left"></i></button>
+            <button class="newsticker-button newsticker-button--prev" id="newsticker-button--prev" aria-label="next article"><i class="ui-arrow-right"></i></button>
+        </div>
+    </div>
+</div>
+@if (Model.MainPageData.SpecialPosts.Any())
+{
+    <section class="featured-posts-grid">
+        <div class="container">
+            <div class="row row-8">
+                @{
+                    var bigPost = Model.MainPageData.SpecialPosts.First();
+                    var smallPosts = Model.MainPageData.SpecialPosts.Where(r => r.PostId != bigPost.PostId);
+                }
+                <div class="col-lg-6">
+                    @foreach (var item in smallPosts)
+                    {
+                        <div class="featured-posts-grid__item featured-posts-grid__item--sm">
+                            <article class="entry card post-list featured-posts-grid__entry">
+                                <div class="entry__img-holder post-list__img-holder card__img-holder" style="background-image: url(@Directories.GetPostImage(item.ImageName))">
+                                    <a asp-page="Post" asp-route-slug="@item.Slug" class="thumb-url"></a>
+                                    <img src="@Directories.GetPostImage(item.ImageName)" alt="@item.Title" class="entry__img d-none">
+                                    @if (item.SubCategory != null)
+                                    {
+                                        <a asp-page="Search" asp-route-categorySlug="@item.SubCategory.Slug" class="entry__meta-category entry__meta-category--label entry__meta-category--align-in-corner entry__meta-category--violet">
+                                            @item.SubCategory.Title
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-page="Search" asp-route-categorySlug="@item.Category.Slug" class="entry__meta-category entry__meta-category--label entry__meta-category--align-in-corner entry__meta-category--violet">
+                                            @item.Category.Title
+                                        </a>
+                                    }
+                                </div>
+
+                                <div class="entry__body post-list__body card__body">
+                                    <h2 class="entry__title">
+                                        <a asp-page="Post" asp-route-slug="@item.Slug">@item.Title</a>
+                                    </h2>
+                                    <ul class="entry__meta">
+                                        <li class="entry__meta-author">
+                                            <span>نویسنده:</span>
+                                            <a href="#">@item.UserName</a>
+                                        </li>
+                                        <li class="entry__meta-date">
+                                            @item.CreationDate.ToPersianDate("ds dd ms Y")
+                                        </li>
+                                    </ul>
+                                </div>
+                            </article>
+                        </div>
+                    }
+                </div>
+                <div class="col-lg-6">
+                    <div class="featured-posts-grid__item featured-posts-grid__item--lg">
+                        <article class="entry card featured-posts-grid__entry">
+                            <div class="entry__img-holder card__img-holder">
+                                <a asp-page="Post" asp-route-slug="@bigPost.Slug">
+                                    <img src="@Directories.GetPostImage(bigPost.ImageName)" alt="@bigPost.Title" class="entry__img">
+                                </a>
+                                @if (bigPost.SubCategory != null)
+                                {
+                                    <a asp-page="Search" asp-route-categorySlug="@bigPost.SubCategory.Slug" class="entry__meta-category entry__meta-category--label entry__meta-category--align-in-corner entry__meta-category--violet">
+                                        @bigPost.SubCategory.Title
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a asp-page="Search" asp-route-categorySlug="@bigPost.Category.Slug" class="entry__meta-category entry__meta-category--label entry__meta-category--align-in-corner entry__meta-category--violet">
+                                        @bigPost.Category.Title
+                                    </a>
+                                }
+                            </div>
+
+                            <div class="entry__body card__body">
+                                <h2 class="entry__title">
+                                    <a asp-page="Post" asp-route-slug="@bigPost.Slug">@bigPost.Title</a>
+                                </h2>
+                                <ul class="entry__meta">
+                                    <li class="entry__meta-author">
+                                        <span>نویسنده:</span>
+                                        <a href="#">@bigPost.UserName</a>
+                                    </li>
+                                    <li class="entry__meta-date">
+                                        @bigPost.CreationDate.ToPersianDate("ds dd ms Y")
+                                    </li>
+                                </ul>
+                            </div>
+                        </article>
+                    </div> <!-- end large post -->
+                </div>
+
+            </div>
+        </div>
+    </section> <!-- end featured posts grid -->
+}
+<div class="main-container container pt-24" id="main-container">
+    <div class="row">
+
+        <div class="col-lg-8 blog__content">
+
+            <section class="section tab-post mb-16">
+                <div class="title-wrap title-wrap--line">
+                    <h3 class="section-title">آخرین عنوان ها</h3>
+
+                    <div class="tabs tab-post__tabs">
+                        <ul class="tabs__list">
+                            <li class="tabs__item tabs__item--active">
+                                <a href="#tab-all" onclick="getLatestPostBySlug('')" class="tabs__trigger">همه</a>
+                            </li>
+                            @foreach (var item in Model.MainPageData.Categories.Where(r => r.IsMainCategory))
+                            {
+                                <li class="tabs__item">
+                                    <a href="#tab-all" onclick="getLatestPostBySlug('@item.Slug')" class="tabs__trigger">@item.Title</a>
+                                </li>
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- tab content -->
+                <div class="tabs__content tabs__content-trigger tab-post__tabs-content">
+                    <div class="tabs__content-pane tabs__content-pane--active" id="tab-all">
+                        <div class="row card-row" id="latestPost">
+                            <partial name="Shared/_LatestPosts" model="@Model.MainPageData.LatestPosts" />
+                        </div>
+                    </div> <!-- end pane 1 -->
+
+                </div>
+            </section>
+
+        </div>
+
+        <aside class="col-lg-4 sidebar sidebar--right">
+            <div id="popular_posts"></div>
+            <aside class="widget widget_categories">
+                <h4 class="widget-title">دسته بندی نوشته ها</h4>
+                <ul>
+                    @foreach (var category in Model.MainPageData.Categories)
+                    {
+                        <li>
+                            <a asp-page="Search" asp-route-categorySlug="@category.Slug">
+                                @category.Title
+                                <span class="categories-count">@category.PostChild</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </aside>
+
+        </aside>
+    </div> <!-- end content -->
+    <aside class="col-lg-4 sidebar sidebar--1 sidebar--right">
+    </aside> <!-- end sidebar 1 -->
+</div> <!-- content secondary -->
+@section Scripts
+    {
+    <script>
+        function getLatestPostBySlug(slug) {
+            $.ajax({
+                url: "/index/LatestPosts?categorySlug=" + slug,
+                type: "get",
+                beforeSend: function () {
+                    $(".loading").show();
+                },
+                complete: function () {
+                    $(".loading").hide();
+                }
+            }).done(function (data) {
+                $("#latestPost").html(data);
+            });
+        }
+    </script>
+}

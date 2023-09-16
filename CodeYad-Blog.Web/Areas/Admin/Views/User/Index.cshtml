@@ -1,0 +1,59 @@
+﻿@model CodeYad_Blog.CoreLayer.DTOs.Users.UserFilterDto
+@{
+    ViewData["title"] = "مدیریت کاربران";
+    ViewData["selected"] = "users";
+    var counter = 1;
+}
+<section class="content-header">
+    <h1>
+        @ViewData["title"]
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a asp-area="Admin" asp-controller="Home" asp-action="Index">
+                <i class="fa fa-dashboard"></i> خانه
+            </a>
+        </li>
+        <li class="active">@ViewData["title"]</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box box-primary ">
+        <div class="box-body p-0">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>نام کاربری</th>
+                        <th>نام و نام خانوادگی</th>
+                        <th>ایمیل</th>
+                        <th>نقش</th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Users)
+                    {
+                        <tr>
+                            <td>@counter</td>
+                            <td>@item.UserName</td>
+                            <td>@item.FullName</td>
+                            <td>@item.Email</td>
+                            <td>
+                                @item.Role.ToString()
+                            </td>
+                            <td>
+                                <open-modal title="ویرایش کاربر"
+                                            url="@Url.Action("ShowEditModal","User",new {userId=item.Id})">
+                                    ویرایش
+                                </open-modal>
+                            </td>
+                        </tr>
+                        counter += 1;
+                    }
+                </tbody>
+            </table>
+        </div>
+        <partial name="_Pagination" model="Model"/>
+    </div>
+</section>
