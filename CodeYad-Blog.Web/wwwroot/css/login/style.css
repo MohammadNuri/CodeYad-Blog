@@ -1,0 +1,264 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100&family=Poppins:wght@200;400&display=swap');
+
+:root {
+
+    --primary: #DD946F;
+    --primary-hover: #CD7D7C;
+    --secendry: #EFD0F8;
+    --secendry-hover: #B8A1D9;
+    --aura: #9265CA80;
+    --background: #34239e;
+
+
+}
+
+
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: 900;
+    src: url('/fonts/IRANSans/eot/IRANSansWeb_Black.eot');
+    src: url('/fonts/IRANSans/eot/IRANSansWeb_Black.eot?#iefix') format('embedded-opentype'), /* IE6-8 */
+         url('/fonts/IRANSans/woff2/IRANSansWeb_Black.woff2') format('woff2'), /* FF39+,Chrome36+, Opera24+*/
+         url('/fonts/IRANSans/woff/IRANSansWeb_Black.woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+         url('/fonts/IRANSans/ttf/IRANSansWeb_Black.ttf') format('truetype');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: var(--backgrond);
+    font-family: 'IRANSans';
+}
+
+h1 {
+
+    color: var(--secendry);
+
+}
+
+.background {
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    place-items: center;
+    background-color: white;
+    background-size: cover;
+    background-repeat: 0;
+
+
+
+
+}
+
+.centering {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100wh;
+
+}
+
+.my-form {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: 16px;
+    background-color: var(--background);
+    border: 1px solid var(--primary);
+    border-radius: 16px;
+    box-shadow: 0 20px 60px var(--aura);
+    min-width: 280px;
+    max-width: 460px;
+    width: 100%;
+    padding: 32px;
+    height: 700px;
+    box-shadow: 15px 15px 15px rgba(0.3, 0.3, 0.3, 0.3), 15px 15px 15px rgba(0.3, 0.3, 0.3, 0.3);
+
+}
+
+.logim-welcome {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    border-radius: 20%;
+}
+
+.login-picture {
+    display: block;
+    width: 30%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+
+.my-form-bottom {
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 2.5rem;
+    max-width: 160px;
+    width: 100%;
+    font-weight: 600;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    transition: all 1s ease-in;
+    margin: auto;
+}
+
+.text-field input {
+    color: var(--secendry);
+    font-size: 16px;
+    font-weight: 500;
+    max-width: 100%;
+    width: 100%;
+    border: 1px solid var(--secendry);
+    height: 50px;
+    letter-spacing: .03rem;
+    background-color: transparent;
+    outline: none;
+    transition: .23s;
+    border-radius: 8px;
+    text-indent: 20px;
+    margin-top: 8px;
+}
+
+.my-form-bottom:hover {
+
+    color: #ffffff;
+
+}
+
+.text-field {
+    position: relative;
+    direction: rtl;
+
+}
+
+.text-field input::-webkit-input-placeholder {
+
+    color: var(--secendry-hover);
+}
+
+.text-field img {
+    position: absolute;
+    right: -5px;
+    bottom: -4px;
+    width: 30px;
+    height: 3px;
+    transform: translate(-50px, -50px);
+    transform-origin: center;
+
+}
+
+.text-field input:focus {
+    border: 1px solid var(--primary);
+
+}
+
+.text-field label {
+    color: var(--secendry);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: .03rem;
+    z-index: 10;
+}
+
+.input-icon {
+    position: absolute;
+    bottom: 0;
+    top: 55%;
+    right: 8px;
+    transform: translate(-50%, -50%);
+    transform-origin: center;
+
+}
+
+.my-form-actions {
+    display: flex;
+    flex-direction: column;
+    color: var(--secendry);
+    gap: 16px;
+    margin-top: 8px;
+
+}
+
+.my-form-actions a {
+    color: var(--secendry);
+    font-weight: 800;
+
+}
+
+.my-form-actions a:hover {
+    color: #a7a2cb;
+
+}
+
+.my-form-row {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.my-form-signup {
+    display: flex;
+    justify-content: center
+}
+
+.my-form-signup a {
+    color: var(--primary);
+    font-weight: 800;
+    text-decoration: none;
+    font-size: 8px;
+
+}
+
+.my-form-signup a:hover {
+    color: var(--primary-hover);
+
+
+}
+
+.login-text {
+    text-align: center;
+}
+
+.other-signin {
+    color: white;
+    font-size: 20px;
+    text-align: center;
+
+}
+
+.google {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+}
+
+.twitter {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+}
+
+.meta {
+    text-decoration: none;
+    color: white;
+}
+
+.reset-password {
+    text-decoration: none;
+}

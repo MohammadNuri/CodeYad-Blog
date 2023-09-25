@@ -67,5 +67,12 @@ app.MapControllerRoute(
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                     ); ;
 app.MapRazorPages();
-
+app.UseEndpoints(endpoints =>
+{
+	endpoints.MapGet("/Admin", context =>
+	{
+		context.Response.Redirect("/Admin/Home");
+		return Task.CompletedTask;
+	});
+});
 app.Run();

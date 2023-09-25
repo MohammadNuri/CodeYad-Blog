@@ -3471,12 +3471,14 @@ figcaption {
 /* Logo
 -------------------------------------------------------*/
 .logo {
-	line-height: 1; }
+	line-height: 1;
+}
 
 .logo-holder {
 	display: -webkit-box;
 	display: -ms-flexbox;
-	display: flex; }
+	display: flex;
+}
 
 /* Nav Flexbox
 -------------------------------------------------------*/
@@ -3951,9 +3953,11 @@ input.nav__search-mobile-input:-ms-input-placeholder {
 				margin-bottom: 50px; } }
 		.footer__widgets--short {
 			padding: 60px 0; }
-	.footer .logo__img {
-		display: block;
-		padding-bottom: 20px; }
+.footer .logo__img {
+	display: block;
+	padding-bottom: 20px;
+}
+
 
 /* Footer Grey
 -------------------------------------------------------*/

@@ -64,7 +64,8 @@ namespace CodeYad_Blog.Web.Pages.Auth
             };
             HttpContext.SignInAsync(claimPrincipal, properties);
 
-            return RedirectToPage("../Index");
-        }
+			// return RedirectToPage("../Index");
+			return RedirectToAction("Index", "Home", new { area = "admin" });
+		}
     }
 }

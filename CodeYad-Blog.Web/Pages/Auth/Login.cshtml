@@ -2,69 +2,103 @@
 @model CodeYad_Blog.Web.Pages.Auth.LoginModel
 @{
     ViewData["Title"] = "ورود کاربر";
-    Layout = null;
 }
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>@ViewData["Title"]</title>
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Mulish&display=swap"
-          rel="stylesheet">
-    <link rel="stylesheet" href="/css/style-login.css">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="/css/login/style.css">
+    <link rel="stylesheet" href="/css//Login/all.css">
 </head>
 <body>
     <div class="background"></div>
     <div class="centering">
         <form method="post" class="my-form">
-            <div class="login-welcome-row">
-                <img class="login-welcome"
-                     src="/images/Login/astronaut.jpg"
-                     alt="Astronaut">
-                <!-- optimize the image in production -->
-                <h1>LogIn!</h1>
+       
+            <div class="login-welcome">
+    
+                <img class="login-picture" src="/img/astrounat3.jpg">
+                <h1 class="login-text">ورود کاربر</h1>
+                          
             </div>
             <div class="text-field">
-                <label for="email">Email:</label>
-                <input aria-label="Email"
-                       type="text"
-                       asp-for="UserName"
 
-                       placeholder="Your Email"
-                       required>
-                <img alt="Email Icon"
-                     title="Email Icon"
-                     src="/images/Login/email.svg">
+                <label for="UserName">نام کاربری:</label>
+
+                <input asp-for="UserName" aria-label="UserName" type="text" placeholder="نام کاربری را وارد کنید" required>
+
+                <br>
+                <br>
+
             </div>
             <div class="text-field">
-                <label for="password">Password:</label>
-                <input 
-                       type="password"
-                       asp-for="Password"
-                       aria-label="Password"
-                       placeholder="Your Password"
-                       title="Minimum 6 characters at least 1 Alphabet and 1 Number"
-                       >
-                <img alt="Password Icon"
-                     title="Password Icon"
-                     src="/images/Login/password.svg">
-            </div>
-            <input type="submit" class="my-form__button" value="Login">
-            <div class="my-form__actions">
-                <div class="my-form__row">
-                    <span>Did you forget your password?</span>
-                    <a href="#" title="Reset Password">Reset Password</a>
+                <label for="password">رمز عبور:</label>
+                <input asp-for="Password" type="Password" aria-label="Password" placeholder="رمز را وارد کنید"
+                       title="minimum 6 characters at least 1 Alphabet and 1 number" required>
+                <br />
+                <br />
+                <button type="submit" class="my-form-bottom">ورود</button>
+                <br />
+                <div class="my-form-actions">
+                    <div class="my-form-row">
+                        <span>رمز عبور خود را فراموش کردید؟</span>
+                        <a class="reset-password" href="#">بازیابی رمز عبور</a>
+
+                    </div>
                 </div>
-                <div class="my-form__signup">
-                    <a href="#" title="Create Account">Create Account</a>
+                <div class="login-socail">
+                    <a href="#" title="Creat account">
+
+                    </a>
                 </div>
+                <br />
+                <div class="other-signin">
+                    یا ورود از طریق:
+                    <div class="login-card-social-btn">
+                        <p></p>
+                        <a class="meta" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="icon icon-tabler icon-tabler-brand-meta" width="24" height="24" viewBox="0 0 24 24"
+                                 stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                                 stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M12 10.174c1.766 -2.784 3.315 -4.174 4.648 -4.174c2 0 3.263 2.213 4 5.217c.704 2.869 .5 6.783 -2 6.783c-1.114 0 -2.648 -1.565 -4.148 -3.652a27.627 27.627 0 0 1 -2.5 -4.174z">
+                                </path>
+                                <path d="M12 10.174c-1.766 -2.784 -3.315 -4.174 -4.648 -4.174c-2 0 -3.263 2.213 -4 5.217c-.704 2.869 -.5 6.783 2 6.783c1.114 0 2.648 -1.565 4.148 -3.652c1 -1.391 1.833 -2.783 2.5 -4.174z">
+                                </path>
+                            </svg>
+                        </a>
+                        <a class="google" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-google" width="24"
+                                 height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                 stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M17.788 5.108a9 9 0 1 0 3.212 6.892h-8"></path>
+                            </svg>
+                        </a>
+                        <a class="twitter" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="icon icon-tabler icon-tabler-brand-twitter-filled" width="24" height="24"
+                                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                 stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M14.058 3.41c-1.807 .767 -2.995 2.453 -3.056 4.38l-.002 .182l-.243 -.023c-2.392 -.269 -4.498 -1.512 -5.944 -3.531a1 1 0 0 0 -1.685 .092l-.097 .186l-.049 .099c-.719 1.485 -1.19 3.29 -1.017 5.203l.03 .273c.283 2.263 1.5 4.215 3.779 5.679l.173 .107l-.081 .043c-1.315 .663 -2.518 .952 -3.827 .9c-1.056 -.04 -1.446 1.372 -.518 1.878c3.598 1.961 7.461 2.566 10.792 1.6c4.06 -1.18 7.152 -4.223 8.335 -8.433l.127 -.495c.238 -.993 .372 -2.006 .401 -3.024l.003 -.332l.393 -.779l.44 -.862l.214 -.434l.118 -.247c.265 -.565 .456 -1.033 .574 -1.43l.014 -.056l.008 -.018c.22 -.593 -.166 -1.358 -.941 -1.358l-.122 .007a.997 .997 0 0 0 -.231 .057l-.086 .038a7.46 7.46 0 0 1 -.88 .36l-.356 .115l-.271 .08l-.772 .214c-1.336 -1.118 -3.144 -1.254 -5.012 -.554l-.211 .084z"
+                                      stroke-width="0" fill="currentColor"></path>
+                            </svg>
+                        </a>
+
+                    </div>
+
+                </div>
+
             </div>
+
         </form>
     </div>
-    
+
 </body>
 </html>
 
